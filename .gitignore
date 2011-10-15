@@ -1,5 +1,6 @@
 app/cache
 app/logs
+app/bootstrap*
 app/config/parameters.ini
 app/phpunit.xml
 vendor
