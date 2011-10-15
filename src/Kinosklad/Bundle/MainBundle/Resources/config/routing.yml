@@ -1,0 +1,3 @@
+blog_show:
+    pattern:   /
+    defaults:  { _controller: KinoskladMainBundle:Dashboard:show }
