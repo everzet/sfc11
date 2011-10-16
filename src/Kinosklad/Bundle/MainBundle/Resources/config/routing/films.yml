@@ -1,0 +1,30 @@
+films:
+    pattern:  /
+    defaults: { _controller: "KinoskladMainBundle:Film:index" }
+
+films_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "KinoskladMainBundle:Film:show" }
+
+films_new:
+    pattern:  /new
+    defaults: { _controller: "KinoskladMainBundle:Film:new" }
+
+films_create:
+    pattern:  /create
+    defaults: { _controller: "KinoskladMainBundle:Film:create" }
+    requirements: { _method: post }
+
+films_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "KinoskladMainBundle:Film:edit" }
+
+films_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "KinoskladMainBundle:Film:update" }
+    requirements: { _method: post }
+
+films_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "KinoskladMainBundle:Film:delete" }
+    requirements: { _method: post }
