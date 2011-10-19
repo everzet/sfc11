@@ -4,4 +4,8 @@ dashboard:
 
 films:
     prefix:     /films
-    resource:   "@KinoskladMainBundle/Resources/config/routing/films.yml"
+    resource:   @KinoskladMainBundle/Resources/config/routing/films.yml
+
+genres:
+    prefix:     /genres
+    resource:   @KinoskladMainBundle/Resources/config/routing/genres.yml

@@ -1,0 +1,30 @@
+genres:
+    pattern:  /
+    defaults: { _controller: "KinoskladMainBundle:Genre:index" }
+
+genres_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "KinoskladMainBundle:Genre:show" }
+
+genres_new:
+    pattern:  /new
+    defaults: { _controller: "KinoskladMainBundle:Genre:new" }
+
+genres_create:
+    pattern:  /create
+    defaults: { _controller: "KinoskladMainBundle:Genre:create" }
+    requirements: { _method: post }
+
+genres_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "KinoskladMainBundle:Genre:edit" }
+
+genres_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "KinoskladMainBundle:Genre:update" }
+    requirements: { _method: post }
+
+genres_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "KinoskladMainBundle:Genre:delete" }
+    requirements: { _method: post }
