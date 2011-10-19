@@ -5,6 +5,8 @@ namespace Kinosklad\Bundle\MainBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\Constraints as Assert;
+use Gedmo\Mapping\Annotation as Gedmo;
+use Gedmo\Translatable\Translatable;
 
 /**
  * Kinosklad\Bundle\MainBundle\Entity\Film
@@ -12,7 +14,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Table()
  * @ORM\Entity(repositoryClass="Kinosklad\Bundle\MainBundle\Entity\FilmRepository")
  */
-class Film
+class Film implements Translatable
 {
     /**
      * @var integer $id
@@ -30,9 +32,20 @@ class Film
      * @Assert\MinLength(limit=3, message="Title should be more than {{limit}} letters in length")
      * @Assert\MaxLength(limit=255, message="Title should be less than {{limit}} letters in length")
      *
-     * @ORM\Column(name="name", type="string", length=255)
+     * @ORM\Column(name="name", type="string", length=128)
+     *
+     * @Gedmo\Translatable
      */
     private $name;
+
+    /**
+     * @var string $slug
+     *
+     * @ORM\Column(length=128, unique=true)
+     *
+     * @Gedmo\Slug(fields={"name"}, updatable=true)
+     */
+    private $slug;
 
     /**
      * @var string $image
@@ -81,6 +94,8 @@ class Film
      * )
      *
      * @ORM\Column(name="description", type="text")
+     *
+     * @Gedmo\Translatable
      */
     private $description;
 
@@ -95,6 +110,31 @@ class Film
      * @ORM\Column(name="links", type="array")
      */
     private $links = array();
+
+    /**
+     * @var datetime $createdAt
+     *
+     * @ORM\Column(type="date")
+     *
+     * @Gedmo\Timestampable(on="create")
+     */
+    private $createdAt;
+
+    /**
+     * @var datetime $updatedAt
+     *
+     * @ORM\Column(type="datetime")
+     *
+     * @Gedmo\Timestampable(on="update")
+     */
+    private $updatedAt;
+
+    /**
+     * @Gedmo\Locale
+     * Used locale to override Translation listener`s locale
+     * this is not a mapped field of entity metadata, just a simple property
+     */
+    private $locale;
 
     public function __construct()
     {
@@ -279,5 +319,25 @@ class Film
     public function getLinks()
     {
         return $this->links;
+    }
+
+    public function getCreatedAt()
+    {
+        return $this->createdAt;
+    }
+
+    public function getUpdatedAt()
+    {
+        return $this->updatedAt;
+    }
+
+    public function __toString()
+    {
+        return $this->getName();
+    }
+
+    public function setTranslatableLocale($locale)
+    {
+        $this->locale = $locale;
     }
 }

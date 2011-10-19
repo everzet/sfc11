@@ -54,3 +54,11 @@
 [MinkBundle]
     git=https://github.com/Behat/MinkBundle.git
     target=/bundles/Behat/MinkBundle
+
+[doctrine-extensions]
+    git=https://github.com/l3pp4rd/DoctrineExtensions.git
+
+[StofDoctrineExtensionsBundle]
+    git=https://github.com/stof/StofDoctrineExtensionsBundle.git
+    target=/bundles/Stof/DoctrineExtensionsBundle
+    version=1.0.0
