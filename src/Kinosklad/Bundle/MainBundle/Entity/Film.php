@@ -4,6 +4,7 @@ namespace Kinosklad\Bundle\MainBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Kinosklad\Bundle\MainBundle\Entity\Film
@@ -25,26 +26,26 @@ class Film
     /**
      * @var string $name
      *
+     * @Assert\NotBlank(message="Name should not be blank")
+     * @Assert\MinLength(limit=3, message="Title should be more than {{limit}} letters in length")
+     * @Assert\MaxLength(limit=255, message="Title should be less than {{limit}} letters in length")
+     *
      * @ORM\Column(name="name", type="string", length=255)
      */
     private $name;
 
     /**
-     * @var string $title
-     *
-     * @ORM\Column(name="title", type="string", length=255)
-     */
-    private $title;
-
-    /**
      * @var string $image
      *
-     * @ORM\Column(name="image", type="string", length=255)
+     * @ORM\Column(name="image", type="string", length=64, nullable=true)
      */
     private $image;
 
     /**
      * @var smallint $length
+     *
+     * @Assert\NotBlank(message="Specify film length")
+     * @Assert\Min(limit=0, message="Film length should be more than {{limit}} minutes")
      *
      * @ORM\Column(name="length", type="smallint")
      */
@@ -53,6 +54,9 @@ class Film
     /**
      * @var string $country
      *
+     * @Assert\NotBlank(message="Specify film country")
+     * @Assert\Country
+     *
      * @ORM\Column(name="country", type="string", length=128)
      */
     private $country;
@@ -60,12 +64,21 @@ class Film
     /**
      * @var date $premiere
      *
+     * @Assert\NotBlank(message="Specify film premiere date")
+     * @Assert\Date
+     *
      * @ORM\Column(name="premiere", type="date")
      */
     private $premiere;
 
     /**
      * @var string $description
+     *
+     * @Assert\NotBlank(message="Description should not be blank")
+     * @Assert\MaxLength(
+     *     limit=1000,
+     *     message="Description should be less than {{limit}} letters in length"
+     * )
      *
      * @ORM\Column(name="description", type="text")
      */
@@ -91,7 +104,7 @@ class Film
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -111,7 +124,7 @@ class Film
     /**
      * Get name
      *
-     * @return string 
+     * @return string
      */
     public function getName()
     {
@@ -131,7 +144,7 @@ class Film
     /**
      * Get title
      *
-     * @return string 
+     * @return string
      */
     public function getTitle()
     {
@@ -171,7 +184,7 @@ class Film
     /**
      * Get length
      *
-     * @return smallint 
+     * @return smallint
      */
     public function getLength()
     {
@@ -191,7 +204,7 @@ class Film
     /**
      * Get country
      *
-     * @return string 
+     * @return string
      */
     public function getCountry()
     {
@@ -211,7 +224,7 @@ class Film
     /**
      * Get premiere
      *
-     * @return date 
+     * @return date
      */
     public function getPremiere()
     {
@@ -281,7 +294,7 @@ class Film
     /**
      * Get links
      *
-     * @return array 
+     * @return array
      */
     public function getLinks()
     {

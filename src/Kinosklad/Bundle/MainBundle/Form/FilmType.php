@@ -11,13 +11,10 @@ class FilmType extends AbstractType
     {
         $builder
             ->add('name')
-            ->add('title')
-            ->add('image')
             ->add('length')
-            ->add('country')
+            ->add('country', 'country')
             ->add('premiere')
             ->add('description')
-            ->add('links')
             ->add('genres')
         ;
     }
