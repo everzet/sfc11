@@ -16,6 +16,6 @@ class GenreType extends AbstractType
 
     public function getName()
     {
-        return 'kinosklad_bundle_mainbundle_genretype';
+        return 'genre';
     }
 }
