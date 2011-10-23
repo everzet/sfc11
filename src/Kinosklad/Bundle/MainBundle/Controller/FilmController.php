@@ -6,6 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use Kinosklad\Bundle\MainBundle\Entity\Film;
 use Kinosklad\Bundle\MainBundle\Form\FilmType;
+use Kinosklad\Bundle\MainBundle\Form\Proxy\FilmProxy;
 
 /**
  * Film controller.
@@ -58,7 +59,7 @@ class FilmController extends Controller
     public function newAction()
     {
         $entity = new Film();
-        $form   = $this->createForm(new FilmType(), $entity);
+        $form   = $this->createForm(new FilmType(), new FilmProxy($entity));
 
         return $this->render('KinoskladMainBundle:Film:new.html.twig', array(
             'entity' => $entity,
@@ -74,7 +75,7 @@ class FilmController extends Controller
     {
         $entity  = new Film();
         $request = $this->getRequest();
-        $form    = $this->createForm(new FilmType(), $entity);
+        $form    = $this->createForm(new FilmType(), new FilmProxy($entity));
         $form->bindRequest($request);
 
         if ($form->isValid()) {
@@ -83,7 +84,7 @@ class FilmController extends Controller
             $em->flush();
 
             return $this->redirect($this->generateUrl('films_show', array('id' => $entity->getId())));
-            
+
         }
 
         return $this->render('KinoskladMainBundle:Film:new.html.twig', array(
@@ -106,7 +107,7 @@ class FilmController extends Controller
             throw $this->createNotFoundException('Unable to find Film entity.');
         }
 
-        $editForm = $this->createForm(new FilmType(), $entity);
+        $editForm = $this->createForm(new FilmType(), new FilmProxy($entity));
         $deleteForm = $this->createDeleteForm($id);
 
         return $this->render('KinoskladMainBundle:Film:edit.html.twig', array(
@@ -130,7 +131,7 @@ class FilmController extends Controller
             throw $this->createNotFoundException('Unable to find Film entity.');
         }
 
-        $editForm   = $this->createForm(new FilmType(), $entity);
+        $editForm   = $this->createForm(new FilmType(), new FilmProxy($entity));
         $deleteForm = $this->createDeleteForm($id);
 
         $request = $this->getRequest();
@@ -138,7 +139,7 @@ class FilmController extends Controller
         $editForm->bindRequest($request);
 
         if ($editForm->isValid()) {
-            $em->persist($entity);
+            $em->persist($entity->translate());
             $em->flush();
 
             return $this->redirect($this->generateUrl('films_edit', array('id' => $id)));

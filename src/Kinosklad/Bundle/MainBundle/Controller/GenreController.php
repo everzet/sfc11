@@ -6,6 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use Kinosklad\Bundle\MainBundle\Entity\Genre;
 use Kinosklad\Bundle\MainBundle\Form\GenreType;
+use Kinosklad\Bundle\MainBundle\Form\Proxy\GenreProxy;
 
 /**
  * Genre controller.
@@ -58,7 +59,7 @@ class GenreController extends Controller
     public function newAction()
     {
         $entity = new Genre();
-        $form   = $this->createForm(new GenreType(), $entity);
+        $form   = $this->createForm(new GenreType(), new GenreProxy($entity));
 
         return $this->render('KinoskladMainBundle:Genre:new.html.twig', array(
             'entity' => $entity,
@@ -74,7 +75,7 @@ class GenreController extends Controller
     {
         $entity  = new Genre();
         $request = $this->getRequest();
-        $form    = $this->createForm(new GenreType(), $entity);
+        $form    = $this->createForm(new GenreType(), new GenreProxy($entity));
         $form->bindRequest($request);
 
         if ($form->isValid()) {
@@ -83,7 +84,7 @@ class GenreController extends Controller
             $em->flush();
 
             return $this->redirect($this->generateUrl('genres_show', array('id' => $entity->getId())));
-            
+
         }
 
         return $this->render('KinoskladMainBundle:Genre:new.html.twig', array(
@@ -106,7 +107,7 @@ class GenreController extends Controller
             throw $this->createNotFoundException('Unable to find Genre entity.');
         }
 
-        $editForm = $this->createForm(new GenreType(), $entity);
+        $editForm = $this->createForm(new GenreType(), new GenreProxy($entity));
         $deleteForm = $this->createDeleteForm($id);
 
         return $this->render('KinoskladMainBundle:Genre:edit.html.twig', array(
@@ -130,7 +131,7 @@ class GenreController extends Controller
             throw $this->createNotFoundException('Unable to find Genre entity.');
         }
 
-        $editForm   = $this->createForm(new GenreType(), $entity);
+        $editForm   = $this->createForm(new GenreType(), new GenreProxy($entity));
         $deleteForm = $this->createDeleteForm($id);
 
         $request = $this->getRequest();
@@ -138,7 +139,7 @@ class GenreController extends Controller
         $editForm->bindRequest($request);
 
         if ($editForm->isValid()) {
-            $em->persist($entity);
+            $em->persist($entity->translate());
             $em->flush();
 
             return $this->redirect($this->generateUrl('genres_edit', array('id' => $id)));
