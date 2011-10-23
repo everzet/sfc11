@@ -70,6 +70,11 @@ class FilmProxy
             return;
         }
 
+        // remove old image
+        if ($oldImage = $this->getFilm()->getImage(true)) {
+            unlink($oldImage);
+        }
+
         $imagesPath = $this->getFilm()->getImagesPath(true);
         if (!is_dir($imagesPath)) {
             mkdir($imagesPath, 0777, true);
