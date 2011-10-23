@@ -5,3 +5,4 @@ app/config/parameters.ini
 app/phpunit.xml
 vendor
 web/bundles
+web/uploads
