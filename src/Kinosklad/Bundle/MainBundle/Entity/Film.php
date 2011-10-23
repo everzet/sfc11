@@ -48,7 +48,7 @@ class Film
     /**
      * @var string $image
      *
-     * @ORM\Column(name="image", type="string", length=64, nullable=true)
+     * @ORM\Column(name="image", type="string", length=255, nullable=true)
      */
     private $image;
 
@@ -175,6 +175,16 @@ class Film
     }
 
     /**
+     * Get slug
+     *
+     * @return string
+     */
+    public function getSlug()
+    {
+        return $this->slug;
+    }
+
+    /**
      * Set image
      *
      * @param string $image
@@ -187,11 +197,34 @@ class Film
     /**
      * Get image
      *
+     * @param Boolean $absolute
+     *
      * @return string
      */
-    public function getImage()
+    public function getImage($absolute = false)
     {
-        return $this->image;
+        if (null === $this->image) {
+            return;
+        }
+
+        return self::getImagesPath($absolute).'/'.$this->image;
+    }
+
+    /**
+     * Get images storage path
+     *
+     * @param Boolean $absolute
+     *
+     * @return string
+     */
+    public static function getImagesPath($absolute = false)
+    {
+        $path = '';
+        if ($absolute) {
+            $path = realpath(__DIR__.'/../../../../../web').'/';
+        }
+
+        return $path.'uploads/films';
     }
 
     /**

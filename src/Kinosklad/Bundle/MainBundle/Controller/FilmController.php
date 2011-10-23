@@ -79,6 +79,7 @@ class FilmController extends Controller
         $form->bindRequest($request);
 
         if ($form->isValid()) {
+            $form->getData()->evaluateUpload();
             $em = $this->getDoctrine()->getEntityManager();
             $em->persist($entity);
             $em->flush();
@@ -139,6 +140,7 @@ class FilmController extends Controller
         $editForm->bindRequest($request);
 
         if ($editForm->isValid()) {
+            $editForm->getData()->evaluateUpload();
             $em->persist($entity->translate());
             $em->flush();
 

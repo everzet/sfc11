@@ -3,10 +3,16 @@
 namespace Kinosklad\Bundle\MainBundle\Form\Proxy;
 
 use Kinosklad\Bundle\MainBundle\Entity\Film;
+use Symfony\Component\Validator\Constraints as Assert;
 
 class FilmProxy
 {
     private $film;
+
+    /**
+     * @Assert\File(maxSize=6000000)
+     */
+    public $imageFile;
 
     public function __construct(Film $film)
     {
@@ -56,5 +62,22 @@ class FilmProxy
     public function setDescriptionRu($description)
     {
         $this->film->translate('ru')->setDescription($description);
+    }
+
+    public function evaluateUpload()
+    {
+        if (null === $this->imageFile) {
+            return;
+        }
+
+        $imagesPath = $this->getFilm()->getImagesPath(true);
+        if (!is_dir($imagesPath)) {
+            mkdir($imagesPath, 0777, true);
+        }
+
+        $imageName = md5(uniqid().$this->getFilm()->getName()).'.'.$this->imageFile->guessExtension();
+
+        $this->imageFile->move($imagesPath, $imageName);
+        $this->getFilm()->setImage($imageName);
     }
 }
