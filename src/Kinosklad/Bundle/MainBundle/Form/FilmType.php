@@ -10,12 +10,19 @@ class FilmType extends AbstractType
     public function buildForm(FormBuilder $builder, array $options)
     {
         $builder
-            ->add('name')
-            ->add('length')
-            ->add('country', 'country')
-            ->add('premiere')
-            ->add('description')
-            ->add('genres')
+            ->add('nameEn', 'text', array('label' => 'Name (en)'))
+            ->add('nameRu', 'text', array('label' => 'Название (ru)'))
+            ->add('descriptionEn', 'textarea', array('label' => 'Description (en)'))
+            ->add('descriptionRu', 'textarea', array('label' => 'Описание (ru)'))
+            ->add('film.length', 'integer', array('label' => 'Length (minutes)'))
+            ->add('film.country', 'country', array('label' => 'Country'))
+            ->add('film.premiere', 'date', array('label' => 'Premiere date'))
+            ->add('film.genres', 'entity', array(
+                'class'    => 'KinoskladMainBundle:Genre',
+                'label'    => 'Film genres',
+                'expanded' => true,
+                'multiple' => true
+            ))
         ;
     }
 
