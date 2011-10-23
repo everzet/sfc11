@@ -1,3 +1,7 @@
 KinoskladMainBundle:
     resource: "@KinoskladMainBundle/Resources/config/routing/routing.yml"
     prefix:   /
+
+_imagine:
+    resource: .
+    type:     imagine
