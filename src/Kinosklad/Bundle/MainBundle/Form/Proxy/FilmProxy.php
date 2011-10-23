@@ -14,6 +14,8 @@ class FilmProxy
      */
     public $imageFile;
 
+    public $removeImage = false;
+
     public function __construct(Film $film)
     {
         $this->film = $film;
@@ -66,12 +68,17 @@ class FilmProxy
 
     public function evaluateUpload()
     {
+        if ($oldImage = $this->getFilm()->getImage(true) && $this->removeImage) {
+            unlink($oldImage);
+            $this->getFilm()->setImage($this->imageFile = $oldImage = null);
+        }
+
         if (null === $this->imageFile) {
             return;
         }
 
         // remove old image
-        if ($oldImage = $this->getFilm()->getImage(true)) {
+        if ($oldImage) {
             unlink($oldImage);
         }
 
