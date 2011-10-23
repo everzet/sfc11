@@ -3,17 +3,18 @@
 namespace Kinosklad\Bundle\MainBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\Constraints as Assert;
 use Gedmo\Mapping\Annotation as Gedmo;
-use Gedmo\Translatable\Translatable;
+use Gedmo\Translator\ObjectTranslator;
 
 /**
  * Kinosklad\Bundle\MainBundle\Entity\Genre
  *
- * @ORM\Table()
  * @ORM\Entity(repositoryClass="Kinosklad\Bundle\MainBundle\Entity\GenreRepository")
+ * @ORM\HasLifecycleCallbacks
  */
-class Genre implements Translatable
+class Genre
 {
     /**
      * @var integer $id
@@ -30,8 +31,6 @@ class Genre implements Translatable
      * @Assert\NotBlank(message="Name should not be blank")
      *
      * @ORM\Column(name="name", type="string", length=128, unique=true)
-     *
-     * @Gedmo\Translatable
      */
     private $name;
 
@@ -63,11 +62,22 @@ class Genre implements Translatable
     private $updatedAt;
 
     /**
-     * @Gedmo\Locale
-     * Used locale to override Translation listener`s locale
-     * this is not a mapped field of entity metadata, just a simple property
+     * @ORM\OneToMany(
+     *     targetEntity="GenreTranslation",
+     *     mappedBy="translatable",
+     *     cascade={"persist", "update", "remove"}
+     * )
      */
-    private $locale;
+    private $translations;
+
+    private $translator;
+
+    public function __construct()
+    {
+        $this->translations = new ArrayCollection();
+
+        $this->translate();
+    }
 
     /**
      * Get id
@@ -114,8 +124,19 @@ class Genre implements Translatable
         return $this->getName();
     }
 
-    public function setTranslatableLocale($locale)
+    /** @ORM\PrePersist @ORM\PostLoad */
+    public function translate($locale = null)
     {
-        $this->locale = $locale;
+        if (null === $this->translator) {
+            $this->translator = new ObjectTranslator($this,
+                array('name'),
+                'Kinosklad\Bundle\MainBundle\Entity\GenreTranslation',
+                $this->translations
+            );
+
+            return;
+        }
+
+        return $this->translator->translate($locale);
     }
 }

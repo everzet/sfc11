@@ -44,10 +44,10 @@ doctrine:
         charset:  UTF8
 
     orm:
-        auto_generate_proxy_classes: %kernel.debug%
-        auto_mapping: true
+        auto_generate_proxy_classes:        %kernel.debug%
+        auto_mapping:                       true
         mappings:
-            StofDoctrineExtensionsBundle:
+            StofDoctrineExtensionsBundle:   ~
 
 # Doctrine Extensions Configuration
 stof_doctrine_extensions:
@@ -56,7 +56,6 @@ stof_doctrine_extensions:
         default:
             timestampable:  true
             sluggable:      true
-            translatable:   true
 
 # Swiftmailer Configuration
 swiftmailer:

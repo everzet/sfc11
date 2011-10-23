@@ -6,15 +6,15 @@ use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\Constraints as Assert;
 use Gedmo\Mapping\Annotation as Gedmo;
-use Gedmo\Translatable\Translatable;
+use Gedmo\Translator\ObjectTranslator;
 
 /**
  * Kinosklad\Bundle\MainBundle\Entity\Film
  *
- * @ORM\Table()
  * @ORM\Entity(repositoryClass="Kinosklad\Bundle\MainBundle\Entity\FilmRepository")
+ * @ORM\HasLifecycleCallbacks
  */
-class Film implements Translatable
+class Film
 {
     /**
      * @var integer $id
@@ -33,8 +33,6 @@ class Film implements Translatable
      * @Assert\MaxLength(limit=255, message="Title should be less than {{limit}} letters in length")
      *
      * @ORM\Column(name="name", type="string", length=128)
-     *
-     * @Gedmo\Translatable
      */
     private $name;
 
@@ -94,8 +92,6 @@ class Film implements Translatable
      * )
      *
      * @ORM\Column(name="description", type="text")
-     *
-     * @Gedmo\Translatable
      */
     private $description;
 
@@ -130,15 +126,22 @@ class Film implements Translatable
     private $updatedAt;
 
     /**
-     * @Gedmo\Locale
-     * Used locale to override Translation listener`s locale
-     * this is not a mapped field of entity metadata, just a simple property
+     * @ORM\OneToMany(
+     *     targetEntity="FilmTranslation",
+     *     mappedBy="translatable",
+     *     cascade={"persist", "update", "remove"}
+     * )
      */
-    private $locale;
+    private $translations;
+
+    private $translator;
 
     public function __construct()
     {
-        $this->genres = new ArrayCollection();
+        $this->genres       = new ArrayCollection();
+        $this->translations = new ArrayCollection();
+
+        $this->translate();
     }
 
     /**
@@ -336,8 +339,19 @@ class Film implements Translatable
         return $this->getName();
     }
 
-    public function setTranslatableLocale($locale)
+    /** @ORM\PrePersist @ORM\PostLoad */
+    public function translate($locale = null)
     {
-        $this->locale = $locale;
+        if (null === $this->translator) {
+            $this->translator = new ObjectTranslator($this,
+                array('name', 'description'),
+                'Kinosklad\Bundle\MainBundle\Entity\FilmTranslation',
+                $this->translations
+            );
+
+            return;
+        }
+
+        return $this->translator->translate($locale);
     }
 }
