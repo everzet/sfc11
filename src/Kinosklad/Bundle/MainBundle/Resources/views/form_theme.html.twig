@@ -1,0 +1,38 @@
+{% block field_row %}
+{% spaceless %}
+    <div class="clearfix">
+        {{ form_label(form, label|default(null)) }}
+        <div class="input">
+            {{ form_widget(form) }}
+            {{ form_errors(form) }}
+        </div>
+    </div>
+{% endspaceless %}
+{% endblock field_row %}
+
+{% block checkbox_widget %}
+{% spaceless %}
+    <li>
+        <label>
+            <input type="checkbox" {{ block('widget_attributes') }}{% if value is defined %} value="{{ value }}"{% endif %}{% if checked %} checked="checked"{% endif %} />
+            <span>&nbsp;{{ label }}</span>
+        </label>
+    </li>
+{% endspaceless %}
+{% endblock checkbox_widget %}
+
+{% block date_widget %}
+{% spaceless %}
+    {% if widget == 'single_text' %}
+        {{ block('field_widget') }}
+    {% else %}
+        <div class="inline-inputs">
+            {{ date_pattern|replace({
+                '{{ year }}':  form_widget(form.year, {'attr': {'class': 'span2'}}) ~ '&nbsp;',
+                '{{ month }}': form_widget(form.month, {'attr': {'class': 'span2'}}) ~ '&nbsp;',
+                '{{ day }}':   form_widget(form.day, {'attr': {'class': 'span2'}}) ~ '&nbsp;',
+            })|raw }}
+        </div>
+    {% endif %}
+{% endspaceless %}
+{% endblock date_widget %}

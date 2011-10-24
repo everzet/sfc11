@@ -1,0 +1,17 @@
+{% extends "KinoskladMainBundle::layout.html.twig" %}
+
+{% block width %}580{% endblock %}
+
+{% block container %}
+  <div class="content">
+    <div class="page-header">
+      {% block header %}{% endblock %}
+    </div>
+
+    <div class="row">
+      <div class="span10">
+        {% block content %}{% endblock %}
+      </div>
+    </div>
+  </div>
+{% endblock container %}

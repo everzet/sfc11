@@ -11,10 +11,10 @@ class FilmType extends AbstractType
     {
         $builder
             ->add('nameEn', 'text', array('label' => 'Name (en)'))
-            ->add('nameRu', 'text', array('label' => 'Название (ru)'))
+            ->add('nameRu', 'text', array('label' => 'Name (ru)'))
             ->add('descriptionEn', 'textarea', array('label' => 'Description (en)'))
-            ->add('descriptionRu', 'textarea', array('label' => 'Описание (ru)'))
-            ->add('imageFile', 'file', array('label' => 'Upload poster'))
+            ->add('descriptionRu', 'textarea', array('label' => 'Description (ru)'))
+            ->add('imageFile', 'file', array('label' => 'Poster'))
             ->add('film.length', 'integer', array('label' => 'Length (minutes)'))
             ->add('film.country', 'country', array('label' => 'Country'))
             ->add('film.premiere', 'date', array('label' => 'Premiere date'))

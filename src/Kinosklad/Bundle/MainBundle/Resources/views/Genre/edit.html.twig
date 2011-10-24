@@ -1,22 +1,24 @@
-<h1>Genre edit</h1>
+{% extends "KinoskladMainBundle::form_layout.html.twig" %}
+{% form_theme edit_form "KinoskladMainBundle::form_theme.html.twig" %}
 
-<form action="{{ path('genres_update', { 'id': entity.id }) }}" method="post" {{ form_enctype(edit_form) }}>
-    {{ form_widget(edit_form) }}
-    <p>
-        <button type="submit">Edit</button>
-    </p>
-</form>
+{% block title %}Edit "{{ entity.translate().name }}" genre{{ parent() }}{% endblock %}
 
-<ul class="record_actions">
-    <li>
-        <a href="{{ path('genres') }}">
-            Back to the list
-        </a>
-    </li>
-    <li>
-        <form action="{{ path('genres_delete', { 'id': entity.id }) }}" method="post">
-            {{ form_widget(delete_form) }}
-            <button type="submit">Delete</button>
-        </form>
-    </li>
-</ul>
+{% block header %}
+    <h1>{{ entity.translate().name }} <small>edition</small></h1>
+{% endblock header %}
+
+{% block content %}
+    <form action="{{ path('genres_update', { 'id': entity.id }) }}" method="post" {{ form_enctype(edit_form) }}>
+        <fieldset>
+            {{ form_widget(edit_form) }}
+            <div class="actions">
+                <button class="btn primary" type="submit">Update</button>
+            </div>
+        </fieldset>
+    </form>
+
+    <form action="{{ path('genres_delete', { 'id': entity.id }) }}" method="post">
+        {{ form_widget(delete_form) }}
+        <button class="btn danger" type="submit">Delete</button>
+    </form>
+{% endblock content %}

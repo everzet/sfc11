@@ -1,16 +1,37 @@
-<h1>Film creation</h1>
+{% extends "KinoskladMainBundle::form_layout.html.twig" %}
+{% form_theme form "KinoskladMainBundle::form_theme.html.twig" %}
 
-<form action="{{ path('films_create') }}" method="post" {{ form_enctype(form) }}>
-    {{ form_widget(form) }}
-    <p>
-        <button type="submit">Create</button>
-    </p>
-</form>
+{% block title %}Create new{{ parent() }}{% endblock %}
 
-<ul class="record_actions">
-    <li>
-        <a href="{{ path('films') }}">
-            Back to the list
-        </a>
-    </li>
-</ul>
+{% block header %}
+    <h1>New film <small>creation</small></h1>
+{% endblock header %}
+
+{% block content %}
+    <form action="{{ path('films_new', { 'id': entity.id }) }}" method="post" {{ form_enctype(form) }}>
+        <fieldset>
+            {{ form_row(form.imageFile) }}
+            {{ form_row(form.nameEn) }}
+            {{ form_row(form.nameRu) }}
+            {{ form_row(form.descriptionEn) }}
+            {{ form_row(form.descriptionRu) }}
+
+            <div class="clearfix">
+                {{ form_label(form.getChild('film.genres')) }}
+                <div class="input">
+                    <ul class="inputs-list">
+                        {% for checkbox in form.getChild('film.genres') %}
+                            {{ form_widget(checkbox) }}
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+
+            {{ form_rest(form) }}
+
+            <div class="actions">
+                <button class="btn primary" type="submit">Create</button>
+            </div>
+        </fieldset>
+    </form>
+{% endblock content %}

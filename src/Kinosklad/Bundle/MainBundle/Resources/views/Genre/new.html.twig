@@ -1,16 +1,19 @@
-<h1>Genre creation</h1>
+{% extends "KinoskladMainBundle::form_layout.html.twig" %}
+{% form_theme form "KinoskladMainBundle::form_theme.html.twig" %}
 
-<form action="{{ path('genres_create') }}" method="post" {{ form_enctype(form) }}>
-    {{ form_widget(form) }}
-    <p>
-        <button type="submit">Create</button>
-    </p>
-</form>
+{% block title %}Create new genre{{ parent() }}{% endblock %}
 
-<ul class="record_actions">
-    <li>
-        <a href="{{ path('genres') }}">
-            Back to the list
-        </a>
-    </li>
-</ul>
+{% block header %}
+    <h1>New genre <small>creation</small></h1>
+{% endblock header %}
+
+{% block content %}
+    <form action="{{ path('genres_create', { 'id': entity.id }) }}" method="post" {{ form_enctype(form) }}>
+        <fieldset>
+            {{ form_widget(form) }}
+            <div class="actions">
+                <button class="btn primary" type="submit">Create</button>
+            </div>
+        </fieldset>
+    </form>
+{% endblock content %}
