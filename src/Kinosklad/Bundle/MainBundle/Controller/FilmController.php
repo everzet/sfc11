@@ -108,7 +108,9 @@ class FilmController extends Controller
             throw $this->createNotFoundException('Unable to find Film entity.');
         }
 
-        $editForm = $this->createForm(new FilmType(), new FilmProxy($entity));
+        $editForm = $this->createForm(new FilmType(), new FilmProxy($entity), array(
+            'filmAlreadyHasImage' => null !== $entity->getImage()
+        ));
         $deleteForm = $this->createDeleteForm($id);
 
         return $this->render('KinoskladMainBundle:Film:edit.html.twig', array(
@@ -132,7 +134,9 @@ class FilmController extends Controller
             throw $this->createNotFoundException('Unable to find Film entity.');
         }
 
-        $editForm   = $this->createForm(new FilmType(), new FilmProxy($entity));
+        $editForm = $this->createForm(new FilmType(), new FilmProxy($entity), array(
+            'filmAlreadyHasImage' => null !== $entity->getImage()
+        ));
         $deleteForm = $this->createDeleteForm($id);
 
         $request = $this->getRequest();

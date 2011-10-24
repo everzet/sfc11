@@ -68,9 +68,9 @@ class FilmProxy
 
     public function evaluateUpload()
     {
-        if ($oldImage = $this->getFilm()->getImage(true) && $this->removeImage) {
+        if (($oldImage = $this->getFilm()->getImage(true)) && $this->removeImage) {
             unlink($oldImage);
-            $this->getFilm()->setImage($this->imageFile = $oldImage = null);
+            $this->getFilm()->setImage($oldImage = null);
         }
 
         if (null === $this->imageFile) {

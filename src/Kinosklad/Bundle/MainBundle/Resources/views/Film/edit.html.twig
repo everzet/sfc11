@@ -1,7 +1,18 @@
 <h1>Film edit</h1>
 
 <form action="{{ path('films_update', { 'id': entity.id }) }}" method="post" {{ form_enctype(edit_form) }}>
-    {{ form_widget(edit_form) }}
+    {{ form_row(edit_form.nameEn) }}
+    {{ form_row(edit_form.nameRu) }}
+    {{ form_row(edit_form.descriptionEn) }}
+    {{ form_row(edit_form.descriptionRu) }}
+
+    {% if entity.image %}
+        <img src="/{{ entity.image }}" />
+        {{ form_row(edit_form.removeImage) }}
+    {% endif %}
+    {{ form_row(edit_form.imageFile) }}
+
+    {{ form_rest(edit_form) }}
     <p>
         <button type="submit">Edit</button>
     </p>

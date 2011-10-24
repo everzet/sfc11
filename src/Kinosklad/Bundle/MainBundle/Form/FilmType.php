@@ -14,8 +14,7 @@ class FilmType extends AbstractType
             ->add('nameRu', 'text', array('label' => 'Название (ru)'))
             ->add('descriptionEn', 'textarea', array('label' => 'Description (en)'))
             ->add('descriptionRu', 'textarea', array('label' => 'Описание (ru)'))
-            ->add('imageFile', 'file', array('label' => 'Poster'))
-            ->add('removeImage', 'checkbox', array('label' => 'Remove poster'))
+            ->add('imageFile', 'file', array('label' => 'Upload poster'))
             ->add('film.length', 'integer', array('label' => 'Length (minutes)'))
             ->add('film.country', 'country', array('label' => 'Country'))
             ->add('film.premiere', 'date', array('label' => 'Premiere date'))
@@ -26,6 +25,17 @@ class FilmType extends AbstractType
                 'multiple' => true
             ))
         ;
+
+        if ($options['filmAlreadyHasImage']) {
+            $builder->add('removeImage', 'checkbox', array('label' => 'Remove poster'));
+        }
+    }
+
+    public function getDefaultOptions(array $options)
+    {
+        return array(
+            'filmAlreadyHasImage' => false
+        );
     }
 
     public function getName()
