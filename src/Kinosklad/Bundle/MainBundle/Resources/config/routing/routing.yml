@@ -1,9 +1,4 @@
-dashboard:
-    pattern:   /
-    defaults:  { _controller: KinoskladMainBundle:Dashboard:show }
-
 films:
-    prefix:     /films
     resource:   @KinoskladMainBundle/Resources/config/routing/films.yml
 
 genres:

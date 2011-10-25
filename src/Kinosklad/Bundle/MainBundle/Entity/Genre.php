@@ -124,7 +124,7 @@ class Genre
         return $this->getName();
     }
 
-    /** @ORM\PrePersist @ORM\PostLoad */
+    /** @ORM\PrePersist */
     public function translate($locale = null)
     {
         if (null === $this->translator) {
@@ -133,8 +133,6 @@ class Genre
                 'Kinosklad\Bundle\MainBundle\Entity\GenreTranslation',
                 $this->translations
             );
-
-            return;
         }
 
         return $this->translator->translate($locale);

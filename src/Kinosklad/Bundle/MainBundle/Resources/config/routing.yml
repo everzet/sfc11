@@ -1,4 +1,0 @@
-KinoskladMainBundle_genres:
-    resource: "@KinoskladMainBundle/Resources/config/routing/genre.yml"
-    prefix:   /genres
-

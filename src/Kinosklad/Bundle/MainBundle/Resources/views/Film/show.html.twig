@@ -1,12 +1,12 @@
 {% extends "KinoskladMainBundle::form_layout.html.twig" %}
 
-{% block title %}{{ entity.translate().name }}{{ parent() }}{% endblock %}
+{% block title %}{{ entity.translate(app.session.locale == 'en' ? null : app.session.locale).name }}{{ parent() }}{% endblock %}
 
 {% block header %}
-    <h1>{{ entity.translate().name}}
+    <h1>{{ entity.translate(app.session.locale == 'en' ? null : app.session.locale).name}}
         <small>
             {% for genre in entity.genres %}
-                {{ genre.translate().name }}{% if not loop.last %}, {% endif %}
+                {{ genre.translate(app.session.locale == 'en' ? null : app.session.locale).name }}{% if not loop.last %}, {% endif %}
             {% endfor %}
         </small>
     </h1>
@@ -15,7 +15,7 @@
 {% block content %}
     <img style="float:left; margin-right:10px; margin-bottom:10px;" class="thumbnail" src="{{ ('/'~entity.image) | apply_filter('poster_normal') }}" />
 
-    <p>{{ entity.translate().description }}</p>
+    <p>{{ entity.translate(app.session.locale == 'en' ? null : app.session.locale).description }}</p>
 
     <span class="label">Length:</span> {{ entity.length }} {{ 'min.' }}<br/>
     <span class="label">Premiere:</span> {{ entity.premiere | date('m.d.Y') }}<br/>

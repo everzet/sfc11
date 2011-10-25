@@ -11,7 +11,7 @@
                 {% for entity in entities %}
                     <a href="{{ path('films_show', {'id': entity.id}) }}">
                         <h3 style="position:absolute;max-width:200px;padding:0px 5px;background:#fff;opacity:0.8;">
-                            {{ entity.translate().name }}
+                            {{ entity.translate(app.session.locale == 'en' ? null : app.session.locale).name }}
                         </h3>
                         <img class="thumbnail" src="{{ ('/'~entity.image) | apply_filter('poster_normal') }}" />
                     </a>

@@ -372,7 +372,7 @@ class Film
         return $this->getName();
     }
 
-    /** @ORM\PrePersist @ORM\PostLoad */
+    /** @ORM\PrePersist */
     public function translate($locale = null)
     {
         if (null === $this->translator) {
@@ -381,8 +381,6 @@ class Film
                 'Kinosklad\Bundle\MainBundle\Entity\FilmTranslation',
                 $this->translations
             );
-
-            return;
         }
 
         return $this->translator->translate($locale);
