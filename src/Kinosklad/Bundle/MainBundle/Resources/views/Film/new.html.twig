@@ -8,7 +8,7 @@
 {% endblock header %}
 
 {% block content %}
-    <form action="{{ path('films_new', { 'id': entity.id }) }}" method="post" {{ form_enctype(form) }}>
+    <form action="{{ path('films_create', { 'id': entity.id }) }}" method="post" {{ form_enctype(form) }}>
         <fieldset>
             {{ form_row(form.imageFile) }}
             {{ form_row(form.nameEn) }}

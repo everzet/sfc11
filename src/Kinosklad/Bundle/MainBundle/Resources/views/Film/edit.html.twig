@@ -13,9 +13,10 @@
             <div class="clearfix">
                 {{ form_label(edit_form.imageFile) }}
                 <div class="input">
-                    {% if entity.image %}<img src="/{{ entity.image }}" /><br/>{% endif %}
+                    {% if entity.image %}<img src="{{ ('/'~entity.image) | apply_filter('poster_normal') }}" /><br/>{% endif %}
                     {{ form_widget(edit_form.imageFile) }}
-                    {% if edit_form.has('removeImage') %}
+                    {% if entity.image %}
+                        <br/>
                         <ul class="inputs-list">
                             {{ form_widget(edit_form.removeImage) }}
                         </ul>

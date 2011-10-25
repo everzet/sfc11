@@ -1,57 +1,23 @@
-<h1>Film</h1>
+{% extends "KinoskladMainBundle::form_layout.html.twig" %}
 
-<table class="record_properties">
-    <tbody>
-        <tr>
-            <th>Id</th>
-            <td>{{ entity.id }}</td>
-        </tr>
-        <tr>
-            <th>Name</th>
-            <td>{{ entity.name }}</td>
-        </tr>
-        <tr>
-            <th>Image</th>
-            <td>{{ entity.image }}</td>
-        </tr>
-        <tr>
-            <th>Length</th>
-            <td>{{ entity.length }}</td>
-        </tr>
-        <tr>
-            <th>Country</th>
-            <td>{{ entity.country }}</td>
-        </tr>
-        <tr>
-            <th>Premiere</th>
-            <td>{{ entity.premiere|date('Y-m-d H:i:s') }}</td>
-        </tr>
-        <tr>
-            <th>Description</th>
-            <td>{{ entity.description }}</td>
-        </tr>
-        <tr>
-            <th>Links</th>
-            <td>{{ entity.links }}</td>
-        </tr>
-    </tbody>
-</table>
+{% block title %}{{ entity.translate().name }}{{ parent() }}{% endblock %}
 
-<ul class="record_actions">
-    <li>
-        <a href="{{ path('films') }}">
-            Back to the list
-        </a>
-    </li>
-    <li>
-        <a href="{{ path('films_edit', { 'id': entity.id }) }}">
-            Edit
-        </a>
-    </li>
-    <li>
-        <form action="{{ path('films_delete', { 'id': entity.id }) }}" method="post">
-            {{ form_widget(delete_form) }}
-            <button type="submit">Delete</button>
-        </form>
-    </li>
-</ul>
+{% block header %}
+    <h1>{{ entity.translate().name}}
+        <small>
+            {% for genre in entity.genres %}
+                {{ genre.translate().name }}{% if not loop.last %}, {% endif %}
+            {% endfor %}
+        </small>
+    </h1>
+{% endblock header %}
+
+{% block content %}
+    <img style="float:left; margin-right:10px; margin-bottom:10px;" class="thumbnail" src="{{ ('/'~entity.image) | apply_filter('poster_normal') }}" />
+
+    <p>{{ entity.translate().description }}</p>
+
+    <span class="label">Length:</span> {{ entity.length }} {{ 'min.' }}<br/>
+    <span class="label">Premiere:</span> {{ entity.premiere | date('m.d.Y') }}<br/>
+    <span class="label">Country:</span> {{ entity.country }}<br/>
+{% endblock content %}

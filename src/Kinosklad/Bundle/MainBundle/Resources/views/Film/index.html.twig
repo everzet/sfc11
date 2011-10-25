@@ -1,49 +1,22 @@
-<h1>Film list</h1>
+{% extends "KinoskladMainBundle::layout.html.twig" %}
 
-<table class="records_list">
-    <thead>
-        <tr>
-            <th>Id</th>
-            <th>Name</th>
-            <th>Image</th>
-            <th>Length</th>
-            <th>Country</th>
-            <th>Premiere</th>
-            <th>Description</th>
-            <th>Links</th>
-            <th>Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-    {% for entity in entities %}
-        <tr>
-            <td><a href="{{ path('films_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
-            <td>{{ entity.name }}</td>
-            <td>{{ entity.image }}</td>
-            <td>{{ entity.length }}</td>
-            <td>{{ entity.country }}</td>
-            <td>{% if entity.premiere %}{{ entity.premiere|date('Y-m-d H:i:s') }}{% endif%}</td>
-            <td>{{ entity.description }}</td>
-            <td>{{ entity.links }}</td>
-            <td>
-                <ul>
-                    <li>
-                        <a href="{{ path('films_show', { 'id': entity.id }) }}">show</a>
-                    </li>
-                    <li>
-                        <a href="{{ path('films_edit', { 'id': entity.id }) }}">edit</a>
-                    </li>
-                </ul>
-            </td>
-        </tr>
-    {% endfor %}
-    </tbody>
-</table>
+{% block title %}Films list{{ parent() }}{% endblock %}
 
-<ul>
-    <li>
-        <a href="{{ path('films_new') }}">
-            Create a new entry
-        </a>
-    </li>
-</ul>
+{% block width %}700{% endblock %}
+
+{% block container %}
+    <div class="row" style="margin-top:30px">
+        <div class="span12">
+            <ul class="media-grid">
+                {% for entity in entities %}
+                    <a href="{{ path('films_show', {'id': entity.id}) }}">
+                        <h3 style="position:absolute;max-width:200px;padding:0px 5px;background:#fff;opacity:0.8;">
+                            {{ entity.translate().name }}
+                        </h3>
+                        <img class="thumbnail" src="{{ ('/'~entity.image) | apply_filter('poster_normal') }}" />
+                    </a>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+{% endblock container %}
