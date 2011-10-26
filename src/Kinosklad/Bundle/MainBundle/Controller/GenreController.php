@@ -30,29 +30,6 @@ class GenreController extends Controller
     }
 
     /**
-     * Finds and displays a Genre entity.
-     *
-     */
-    public function showAction($id)
-    {
-        $em = $this->getDoctrine()->getEntityManager();
-
-        $entity = $em->getRepository('KinoskladMainBundle:Genre')->find($id);
-
-        if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Genre entity.');
-        }
-
-        $deleteForm = $this->createDeleteForm($id);
-
-        return $this->render('KinoskladMainBundle:Genre:show.html.twig', array(
-            'entity'      => $entity,
-            'delete_form' => $deleteForm->createView(),
-
-        ));
-    }
-
-    /**
      * Displays a form to create a new Genre entity.
      *
      */
@@ -83,7 +60,7 @@ class GenreController extends Controller
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('genres_show', array('id' => $entity->getId())));
+            return $this->redirect($this->generateUrl('genres_edit', array('id' => $entity->getId())));
 
         }
 
