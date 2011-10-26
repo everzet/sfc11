@@ -4,7 +4,6 @@ imports:
 
 framework:
     #esi:             ~
-    #translator:      { fallback: %locale% }
     secret:          %secret%
     charset:         UTF-8
     router:          { resource: "%kernel.root_dir%/config/routing.yml" }
@@ -12,6 +11,7 @@ framework:
     csrf_protection: true
     validation:      { enable_annotations: true }
     templating:      { engines: ['twig'] } #assets_version: SomeVersionScheme
+    translator:      { fallback: %locale% }
     session:
         default_locale: %locale%
         auto_start:     true

@@ -4,6 +4,7 @@ namespace Kinosklad\Bundle\MainBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
+use FOS\UserBundle\Entity\User as BaseUser;
 
 /**
  * Kinosklad\Bundle\MainBundle\Entity\User
@@ -11,7 +12,7 @@ use Doctrine\Common\Collections\ArrayCollection;
  * @ORM\Table()
  * @ORM\Entity
  */
-class User
+class User extends BaseUser
 {
     /**
      * @var integer $id
@@ -20,7 +21,7 @@ class User
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private $id;
+    protected $id;
 
     /**
      * @var array $viewed
@@ -46,6 +47,8 @@ class User
 
     public function __construct()
     {
+        parent::__construct();
+
         $this->viewed    = new ArrayCollection();
         $this->favorites = new ArrayCollection();
     }
@@ -53,7 +56,7 @@ class User
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -93,7 +96,7 @@ class User
     /**
      * Get favorites
      *
-     * @return ArrayCollection 
+     * @return ArrayCollection
      */
     public function getFavorites()
     {

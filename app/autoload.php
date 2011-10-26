@@ -18,6 +18,7 @@ $loader->registerNamespaces(array(
     'Gedmo'              => __DIR__.'/../vendor/doctrine-extensions/lib',
     'Imagine'            => __DIR__.'/../vendor/imagine/lib',
     'Avalanche'          => __DIR__.'/../vendor/bundles',
+    'FOS'                => __DIR__.'/../vendor/bundles',
 ));
 $loader->registerPrefixes(array(
     'Twig_Extensions_' => __DIR__.'/../vendor/twig-extensions/lib',

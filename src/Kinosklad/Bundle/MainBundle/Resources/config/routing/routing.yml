@@ -1,6 +1,13 @@
+fos_user_security:
+    resource:   @FOSUserBundle/Resources/config/routing/security.xml
+
+fos_user_register:
+    resource:   @FOSUserBundle/Resources/config/routing/registration.xml
+    prefix:     /register
+
 films:
     resource:   @KinoskladMainBundle/Resources/config/routing/films.yml
 
 genres:
-    prefix:     /genres
+    prefix:     /admin/genres
     resource:   @KinoskladMainBundle/Resources/config/routing/genres.yml

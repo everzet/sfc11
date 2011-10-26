@@ -16,6 +16,7 @@ class AppKernel extends Kernel
             new Symfony\Bundle\DoctrineBundle\DoctrineBundle(),
             new Symfony\Bundle\AsseticBundle\AsseticBundle(),
 
+            new FOS\UserBundle\FOSUserBundle(),
             new Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle(),
             new Avalanche\Bundle\ImagineBundle\AvalancheImagineBundle(),
             new Kinosklad\Bundle\MainBundle\KinoskladMainBundle(),
