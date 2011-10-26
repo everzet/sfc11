@@ -17,7 +17,7 @@
 
     <p>{{ entity.translate(app.session.locale == 'en' ? null : app.session.locale).description }}</p>
 
-    <span class="label">Length:</span> {{ entity.length }} {{ 'min.' }}<br/>
-    <span class="label">Premiere:</span> {{ entity.premiere | date('m.d.Y') }}<br/>
-    <span class="label">Country:</span> {{ entity.country }}<br/>
+    <span class="label">{{ 'Length' | trans }}:</span> {{ entity.length }} {{ 'min.' | trans }}<br/>
+    <span class="label">{{ 'Premiere' | trans }}:</span> {{ entity.premiere | date('m.d.Y') }}<br/>
+    <span class="label">{{ 'Country' | trans }}:</span> {{ entity.country }}<br/>
 {% endblock content %}

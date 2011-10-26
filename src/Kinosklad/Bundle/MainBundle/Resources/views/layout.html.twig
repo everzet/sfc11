@@ -60,10 +60,10 @@
     <div class="topbar">
         <div class="fill">
             <div class="container">
-                <a class="brand" href="/">Kinosklad</a>
+                <a class="brand" href="{{ path('films') }}">Kinosklad</a>
                 <form action="" class="pull-right">
-                    <input class="input-big" type="text" placeholder="Film name">
-                    <button class="btn" type="submit">Search</button>
+                    <input class="input-big" type="text" placeholder="{{ 'Search...' | trans }}">
+                    <button class="btn" type="submit">{{ 'go' | trans }}</button>
                 </form>
             </div>
         </div>

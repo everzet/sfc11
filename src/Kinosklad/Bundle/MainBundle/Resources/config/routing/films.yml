@@ -1,10 +1,14 @@
 films:
     pattern:  /{_locale}
     defaults: { _controller: "KinoskladMainBundle:Film:index", _locale: en}
+    requirements:
+        _locale: en|ru
 
 films_show:
     pattern:  /{_locale}/{id}/show
     defaults: { _controller: "KinoskladMainBundle:Film:show", _locale: en }
+    requirements:
+        _locale: en|ru
 
 films_new:
     pattern:  /new
