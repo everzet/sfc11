@@ -20,6 +20,7 @@ class AppKernel extends Kernel
             new Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle(),
             new Avalanche\Bundle\ImagineBundle\AvalancheImagineBundle(),
             new Kinosklad\Bundle\MainBundle\KinoskladMainBundle(),
+            new Kinosklad\Bundle\UserBundle\KinoskladUserBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

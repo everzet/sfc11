@@ -2,9 +2,17 @@
 'go': вперед
 'language': язык
 'user': юзер
+'Login': Войти
+'Logout': Выйти
+'Register': Зарегистрироваться
 
 'Films list': Список фильмов
 'Length': Продолжительность
 'min.': мин.
 'Premiere': Премьера
 'Country': Страна
+
+'Username': Юзернейм
+'Email': Мыло
+'First': Пароль раз
+'Second': Пароль два

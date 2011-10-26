@@ -91,18 +91,18 @@
                             {% if is_granted('ROLE_USER') %}
                                 <li>
                                     <a href="{{ path('fos_user_security_logout') }}">
-                                        {{ 'Logout' | trans({}, 'FOSUserBundle') }}
+                                        {{ 'Logout' | trans }}
                                     </a>
                                 </li>
                             {% else %}
                                 <li>
                                     <a href="{{ path('fos_user_security_login') }}">
-                                        {{ 'Login' | trans({}, 'FOSUserBundle') }}
+                                        {{ 'Login' | trans }}
                                     </a>
                                 </li>
                                 <li>
                                     <a href="{{ path('fos_user_registration_register') }}">
-                                        {{ 'Register' | trans({}, 'FOSUserBundle') }}
+                                        {{ 'Register' | trans }}
                                     </a>
                                 </li>
                             {% endif %}
