@@ -61,6 +61,14 @@
         <div class="fill">
             <div class="container">
                 <a class="brand" href="{{ path('films') }}">Kinosklad</a>
+                <ul class="nav">
+                    <li{% if app.session.locale == 'en' %} class="active"{% endif %}>
+                        <a href="{{ path('films', {'_locale': 'en'}) }}">en</a>
+                    </li>
+                    <li{% if app.session.locale == 'ru' %} class="active"{% endif %}>
+                        <a href="{{ path('films', {'_locale': 'ru'}) }}">ru</a>
+                    </li>
+                </ul>
                 <form action="" class="pull-right">
                     <input class="input-big" type="text" placeholder="{{ 'Search...' | trans }}">
                     <button class="btn" type="submit">{{ 'go' | trans }}</button>
