@@ -96,7 +96,7 @@ class Film
     private $description;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Genre")
+     * @ORM\ManyToMany(targetEntity="Genre", inversedBy="films")
      */
     private $genres;
 

@@ -44,6 +44,11 @@ class Genre
     private $slug;
 
     /**
+     * @ORM\ManyToMany(targetEntity="Film", mappedBy="genres")
+     */
+    private $films;
+
+    /**
      * @var datetime $createdAt
      *
      * @ORM\Column(type="date")
@@ -107,6 +112,11 @@ class Genre
     public function getName()
     {
         return $this->name;
+    }
+
+    public function getFilms()
+    {
+        return $this->films;
     }
 
     public function getCreatedAt()

@@ -12,4 +12,13 @@ use Doctrine\ORM\EntityRepository;
  */
 class GenreRepository extends EntityRepository
 {
+    public function findAll()
+    {
+        return $this->createQueryBuilder('g')
+            ->select('g, t, f')
+            ->join('g.translations', 't')
+            ->join('g.films', 'f')
+            ->getQuery()
+            ->execute();
+    }
 }

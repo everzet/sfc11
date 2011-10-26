@@ -1,37 +1,36 @@
-<h1>Genre list</h1>
+{% extends "KinoskladMainBundle::form_layout.html.twig" %}
 
-<table class="records_list">
-    <thead>
-        <tr>
-            <th>Id</th>
-            <th>Name</th>
-            <th>Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-    {% for entity in entities %}
-        <tr>
-            <td><a href="{{ path('genres_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
-            <td>{{ entity.name }}</td>
-            <td>
-                <ul>
-                    <li>
-                        <a href="{{ path('genres_show', { 'id': entity.id }) }}">show</a>
-                    </li>
-                    <li>
-                        <a href="{{ path('genres_edit', { 'id': entity.id }) }}">edit</a>
-                    </li>
-                </ul>
-            </td>
-        </tr>
-    {% endfor %}
-    </tbody>
-</table>
+{% block title %}Genres{{ parent() }}{% endblock %}
 
-<ul>
-    <li>
-        <a href="{{ path('genres_new') }}">
-            Create a new entry
-        </a>
-    </li>
-</ul>
+{% block header %}
+    <h1>Genres</h1>
+{% endblock header %}
+
+{% block content %}
+    <table class="zebra-striped">
+        <thead>
+            <tr>
+                <th>Name (en)</th>
+                <th>Name (ru)</th>
+                <th>Films count</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for entity in entities %}
+            <tr>
+                <td>{{ entity.translate().name }}</td>
+                <td>{{ entity.translate('ru').name }}</td>
+                <td>{{ entity.films | length }}</td>
+                <td>
+                    <a href="{{ path('genres_edit', { 'id': entity.id }) }}">edit</a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('genres_new') }}">
+        Create a new entry
+    </a>
+{% endblock content %}
