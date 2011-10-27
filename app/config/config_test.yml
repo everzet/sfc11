@@ -6,6 +6,11 @@ framework:
     session:
         storage_id: session.storage.filesystem
 
+mink:
+    base_url:         %test_host%/app_test.php/
+    default_session:  goutte
+    goutte:           ~
+
 web_profiler:
     toolbar: false
     intercept_redirects: false

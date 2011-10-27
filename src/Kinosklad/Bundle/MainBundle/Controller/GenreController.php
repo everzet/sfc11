@@ -60,7 +60,7 @@ class GenreController extends Controller
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('genres_edit', array('id' => $entity->getId())));
+            return $this->redirect($this->generateUrl('genres'));
 
         }
 
@@ -84,7 +84,7 @@ class GenreController extends Controller
             throw $this->createNotFoundException('Unable to find Genre entity.');
         }
 
-        $editForm = $this->createForm(new GenreType(), new GenreProxy($entity));
+        $editForm   = $this->createForm(new GenreType(), new GenreProxy($entity));
         $deleteForm = $this->createDeleteForm($id);
 
         return $this->render('KinoskladMainBundle:Genre:edit.html.twig', array(
@@ -119,7 +119,7 @@ class GenreController extends Controller
             $em->persist($entity->translate());
             $em->flush();
 
-            return $this->redirect($this->generateUrl('genres_edit', array('id' => $id)));
+            return $this->redirect($this->generateUrl('genres'));
         }
 
         return $this->render('KinoskladMainBundle:Genre:edit.html.twig', array(

@@ -2,10 +2,6 @@ genres:
     pattern:  /
     defaults: { _controller: "KinoskladMainBundle:Genre:index" }
 
-genres_show:
-    pattern:  /{id}/show
-    defaults: { _controller: "KinoskladMainBundle:Genre:show" }
-
 genres_new:
     pattern:  /new
     defaults: { _controller: "KinoskladMainBundle:Genre:new" }

@@ -23,7 +23,7 @@
                 <td>{{ entity.translate('ru').name }}</td>
                 <td>{{ entity.films | length }}</td>
                 <td>
-                    <a href="{{ path('genres_edit', { 'id': entity.id }) }}">edit</a>
+                    <a href="{{ path('genres_edit', { 'id': entity.id }) }}">edit genre</a>
                 </td>
             </tr>
         {% endfor %}

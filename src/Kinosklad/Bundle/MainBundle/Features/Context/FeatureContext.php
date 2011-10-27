@@ -17,18 +17,26 @@ use Behat\Gherkin\Node\PyStringNode,
 class FeatureContext extends MinkContext
 {
     /**
+     * @BeforeScenario
+     */
+    public function cleanDatabase()
+    {
+        foreach (array('GenreTranslation', 'Genre', 'FilmTranslation', 'Film', 'User') as $entity) {
+            $this->getEntityManager()->getRepository("KinoskladMainBundle:$entity")
+                ->createQueryBuilder('e')
+                ->delete()
+                ->getQuery()
+                ->execute();
+        }
+    }
+
+    /**
      * @Given /^на сайте зарегистрированы:$/
      */
     public function naSaitieZarieghistrirovany(TableNode $table)
     {
-        $em   = $this->getEntityManager();
-        $um   = $this->getUserManager();
-        $repo = $em->getRepository('KinoskladMainBundle:User');
-
-        foreach ($repo->findAll() as $user) {
-            $em->remove($user);
-        }
-        $em->flush();
+        $em = $this->getEntityManager();
+        $um = $this->getUserManager();
 
         foreach ($table->getHash() as $userHash) {
             $user = $um->createUser();
@@ -49,19 +57,38 @@ class FeatureContext extends MinkContext
      */
     public function naSaitDobavlienyZhanry(TableNode $table)
     {
-        $em   = $this->getEntityManager();
-        $repo = $em->getRepository('KinoskladMainBundle:Genre');
-
-        foreach ($repo->findAll() as $genre) {
-            $em->remove($genre);
-        }
-        $em->flush();
+        $em = $this->getEntityManager();
 
         foreach ($table->getHash() as $genreHash) {
             $genre = new \Kinosklad\Bundle\MainBundle\Entity\Genre();
             $genre->setName($genreHash['name']);
 
             $em->persist($genre);
+        }
+        $em->flush();
+    }
+
+    /**
+     * @Given /^на сайт добавлены фильмы:$/
+     */
+    public function naSaitDobavlienyFilMy(TableNode $table)
+    {
+        $em = $this->getEntityManager();
+
+        foreach ($table->getHash() as $filmHash) {
+            $film = new \Kinosklad\Bundle\MainBundle\Entity\Film();
+            $film->setName($filmHash['name']);
+            $film->setLength(intval($filmHash['length']));
+            $film->setCountry($filmHash['country']);
+            $film->setPremiere(new \DateTime($filmHash['premiere']));
+            $film->setDescription($filmHash['description']);
+
+            $author = $em->getRepository('KinoskladMainBundle:User')
+                ->findOneByUsername($filmHash['author']);
+
+            $film->setAuthor($author);
+
+            $em->persist($film);
         }
         $em->flush();
     }

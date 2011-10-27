@@ -9,5 +9,5 @@ films:
     resource:   @KinoskladMainBundle/Resources/config/routing/films.yml
 
 genres:
-    prefix:     /admin/genres
+    prefix:     /genres
     resource:   @KinoskladMainBundle/Resources/config/routing/genres.yml
