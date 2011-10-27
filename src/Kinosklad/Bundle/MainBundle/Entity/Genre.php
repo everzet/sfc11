@@ -70,7 +70,8 @@ class Genre
      * @ORM\OneToMany(
      *     targetEntity="GenreTranslation",
      *     mappedBy="translatable",
-     *     cascade={"persist", "update", "remove"}
+     *     cascade={"all"},
+     *     orphanRemoval=true
      * )
      */
     private $translations;

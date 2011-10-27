@@ -25,10 +25,10 @@ class FeatureContext extends MinkContext
         $um   = $this->getUserManager();
         $repo = $em->getRepository('KinoskladMainBundle:User');
 
-        $repo->createQueryBuilder('u')
-            ->delete()
-            ->getQuery()
-            ->execute();
+        foreach ($repo->findAll() as $user) {
+            $em->remove($user);
+        }
+        $em->flush();
 
         foreach ($table->getHash() as $userHash) {
             $user = $um->createUser();
@@ -41,7 +41,6 @@ class FeatureContext extends MinkContext
             $um->updatePassword($user);
             $em->persist($user);
         }
-
         $em->flush();
     }
 
@@ -53,10 +52,10 @@ class FeatureContext extends MinkContext
         $em   = $this->getEntityManager();
         $repo = $em->getRepository('KinoskladMainBundle:Genre');
 
-        $repo->createQueryBuilder('g')
-            ->delete()
-            ->getQuery()
-            ->execute();
+        foreach ($repo->findAll() as $genre) {
+            $em->remove($genre);
+        }
+        $em->flush();
 
         foreach ($table->getHash() as $genreHash) {
             $genre = new \Kinosklad\Bundle\MainBundle\Entity\Genre();
@@ -64,7 +63,6 @@ class FeatureContext extends MinkContext
 
             $em->persist($genre);
         }
-
         $em->flush();
     }
 
