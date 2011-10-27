@@ -8,6 +8,9 @@
             {% for genre in entity.genres %}
                 {{ genre.translate(app.session.locale == 'en' ? null : app.session.locale).name }}{% if not loop.last %}, {% endif %}
             {% endfor %}
+            {% if is_granted('EDIT', entity) %}
+                <a href="{{ path('films_edit', {'id': entity.id}) }}">({{ 'edit' | trans }})</a>
+            {% endif %}
         </small>
     </h1>
 {% endblock header %}

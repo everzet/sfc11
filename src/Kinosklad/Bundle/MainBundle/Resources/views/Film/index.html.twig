@@ -7,6 +7,12 @@
 {% block container %}
     <div class="row" style="margin-top:30px">
         <div class="span12">
+            {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                <h3 style="text-align:right">
+                    <a href="{{ path('films_new') }}">(+) {{ 'add new' | trans }}</a>
+                </h3>
+            {% endif %}
+
             <ul class="media-grid">
                 {% for entity in entities %}
                     <a href="{{ path('films_show', {'id': entity.id}) }}">

@@ -3,6 +3,7 @@
 namespace Kinosklad\Bundle\MainBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 use Kinosklad\Bundle\MainBundle\Entity\Film;
 use Kinosklad\Bundle\MainBundle\Form\FilmType;
@@ -74,6 +75,7 @@ class FilmController extends Controller
     public function createAction()
     {
         $entity  = new Film();
+        $entity->setAuthor($this->getSecurityContext()->getToken()->getUser());
         $request = $this->getRequest();
         $form    = $this->createForm(new FilmType(), new FilmProxy($entity));
         $form->bindRequest($request);
@@ -108,6 +110,10 @@ class FilmController extends Controller
             throw $this->createNotFoundException('Unable to find Film entity.');
         }
 
+        if (!$this->getSecurityContext()->isGranted('EDIT', $entity)) {
+            throw new AccessDeniedException();
+        }
+
         $editForm = $this->createForm(new FilmType(), new FilmProxy($entity), array(
             'filmAlreadyHasImage' => null !== $entity->getImage()
         ));
@@ -132,6 +138,10 @@ class FilmController extends Controller
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Film entity.');
+        }
+
+        if (!$this->getSecurityContext()->isGranted('EDIT', $entity)) {
+            throw new AccessDeniedException();
         }
 
         $editForm = $this->createForm(new FilmType(), new FilmProxy($entity), array(
@@ -177,6 +187,10 @@ class FilmController extends Controller
                 throw $this->createNotFoundException('Unable to find Film entity.');
             }
 
+            if (!$this->getSecurityContext()->isGranted('EDIT', $entity)) {
+                throw new AccessDeniedException();
+            }
+
             $em->remove($entity);
             $em->flush();
         }
@@ -190,5 +204,10 @@ class FilmController extends Controller
             ->add('id', 'hidden')
             ->getForm()
         ;
+    }
+
+    private function getSecurityContext()
+    {
+        return $this->get('security.context');
     }
 }

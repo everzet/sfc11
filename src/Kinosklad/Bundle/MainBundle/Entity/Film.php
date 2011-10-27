@@ -108,6 +108,11 @@ class Film
     private $links = array();
 
     /**
+     * @ORM\ManyToOne(targetEntity="User")
+     */
+    private $author;
+
+    /**
      * @var datetime $createdAt
      *
      * @ORM\Column(type="date")
@@ -355,6 +360,25 @@ class Film
     public function getLinks()
     {
         return $this->links;
+    }
+
+    public function setAuthor(User $author)
+    {
+        $this->author = $author;
+    }
+
+    public function isAuthor(User $user)
+    {
+        if ($this->author && $this->author->isUser($user)) {
+            return true;
+        }
+
+        return false;
+    }
+
+    public function getAuthor()
+    {
+        return $this->author;
     }
 
     public function getCreatedAt()
