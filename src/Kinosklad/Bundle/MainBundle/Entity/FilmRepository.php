@@ -32,8 +32,8 @@ class FilmRepository extends EntityRepository
     {
         return $this->createQueryBuilder('f')
             ->select('f, g, ft, gt')
-            ->join('f.genres', 'g')
-            ->join('f.translations', 'ft')
-            ->join('g.translations', 'gt');
+            ->leftJoin('f.genres', 'g')
+            ->leftJoin('f.translations', 'ft')
+            ->leftJoin('g.translations', 'gt');
     }
 }

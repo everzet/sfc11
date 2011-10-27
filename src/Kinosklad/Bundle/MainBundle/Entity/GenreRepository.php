@@ -16,8 +16,8 @@ class GenreRepository extends EntityRepository
     {
         return $this->createQueryBuilder('g')
             ->select('g, t, f')
-            ->join('g.translations', 't')
-            ->join('g.films', 'f')
+            ->leftJoin('g.translations', 't')
+            ->leftJoin('g.films', 'f')
             ->getQuery()
             ->execute();
     }

@@ -10,6 +10,8 @@
             {% if is_granted('IS_AUTHENTICATED_FULLY') %}
                 <h3 style="text-align:right">
                     <a href="{{ path('films_new') }}">(+) {{ 'add new' | trans }}</a>
+                    |
+                    <a href="{{ path('genres') }}">{{ 'genres' | trans }}</a>
                 </h3>
             {% endif %}
 
