@@ -33,6 +33,9 @@ class FilmVoter implements VoterInterface
                     return VoterInterface::ACCESS_GRANTED;
                 }
                 break;
+            case 'ADD_LINK':
+                return VoterInterface::ACCESS_GRANTED;
+                break;
         }
 
         return VoterInterface::ACCESS_DENIED;

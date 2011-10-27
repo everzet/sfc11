@@ -1,4 +1,5 @@
 {% extends "KinoskladMainBundle::form_layout.html.twig" %}
+{% form_theme link_form "KinoskladMainBundle::form_theme.html.twig" %}
 
 {% block title %}{{ entity.translate(app.session.locale == 'en' ? null : app.session.locale).name }}{{ parent() }}{% endblock %}
 
@@ -23,4 +24,29 @@
     <span class="label">{{ 'Length' | trans }}:</span> {{ entity.length }} {{ 'min.' | trans }}<br/>
     <span class="label">{{ 'Premiere' | trans }}:</span> {{ entity.premiere | date('m.d.Y') }}<br/>
     <span class="label">{{ 'Country' | trans }}:</span> {{ entity.country }}<br/>
+
+    <form action="{{ path('films_link', { 'id': entity.id }) }}" method="post" {{ form_enctype(link_form) }}>
+        <fieldset>
+            <legend>{{ 'Links' | trans }}</legend>
+
+            <div class="clearfix">
+                <div class="input">
+                    <ul style="float:left">
+                        {% for link in entity.links %}
+                            <li><a href="{{ link }}">{{ link }}</a></li>
+                        {% else %}
+                            <li>{{ 'No links yet' | trans }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+
+            {{ form_widget(link_form) }}
+
+            <div class="actions">
+                <button class="btn primary" type="submit">{{ 'Add link' | trans }}</button>
+            </div>
+        </fieldset>
+    </form>
+
 {% endblock content %}

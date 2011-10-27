@@ -7,7 +7,9 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 use Kinosklad\Bundle\MainBundle\Entity\Film;
 use Kinosklad\Bundle\MainBundle\Form\FilmType;
+use Kinosklad\Bundle\MainBundle\Form\FilmLinkType;
 use Kinosklad\Bundle\MainBundle\Form\Proxy\FilmProxy;
+use Kinosklad\Bundle\MainBundle\Form\Proxy\FilmLinkProxy;
 
 /**
  * Film controller.
@@ -45,11 +47,12 @@ class FilmController extends Controller
         }
 
         $deleteForm = $this->createDeleteForm($id);
+        $linkForm   = $this->createForm(new FilmLinkType(), new FilmLinkProxy());
 
         return $this->render('KinoskladMainBundle:Film:show.html.twig', array(
             'entity'      => $entity,
             'delete_form' => $deleteForm->createView(),
-
+            'link_form'   => $linkForm->createView(),
         ));
     }
 
@@ -166,6 +169,33 @@ class FilmController extends Controller
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         ));
+    }
+
+    public function linkAction($id)
+    {
+        $em = $this->getDoctrine()->getEntityManager();
+
+        $entity = $em->getRepository('KinoskladMainBundle:Film')->find($id);
+
+        if (!$entity) {
+            throw $this->createNotFoundException('Unable to find Film entity.');
+        }
+
+        if (!$this->getSecurityContext()->isGranted('ADD_LINK', $entity)) {
+            throw new AccessDeniedException();
+        }
+
+        $request  = $this->getRequest();
+        $linkForm = $this->createForm(new FilmLinkType(), new FilmLinkProxy($entity));
+        $linkForm->bindRequest($request);
+
+        if ($linkForm->isValid() && !$entity->hasLink($linkForm->getData()->url)) {
+            $entity->addLink($linkForm->getData()->url);
+            $em->persist($entity->translate());
+            $em->flush();
+        }
+
+        return $this->redirect($this->generateUrl('films_show', array('id' => $id)));
     }
 
     /**

@@ -32,3 +32,8 @@ films_delete:
     pattern:  /{id}/delete
     defaults: { _controller: "KinoskladMainBundle:Film:delete" }
     requirements: { _method: post }
+
+films_link:
+    pattern:  /{id}/link
+    defaults: { _controller: "KinoskladMainBundle:Film:link" }
+    requirements: { _method: post }

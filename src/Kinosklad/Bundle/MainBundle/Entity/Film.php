@@ -342,6 +342,11 @@ class Film
         $this->links = $links;
     }
 
+    public function hasLink($link)
+    {
+        return in_array($link, $this->links);
+    }
+
     /**
      * Add link
      *
