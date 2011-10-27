@@ -110,7 +110,7 @@
                     </li>
                 </ul>
                 <form action="" class="pull-right">
-                    <input name="q" class="input-big" type="text" placeholder="{{ 'Search...' | trans }}">
+                    <input name="q" value="{{ film_search_string() }}" class="input-big" type="text" placeholder="{{ 'Search...' | trans }}">
                     <button class="btn" type="submit">{{ 'go' | trans }}</button>
                 </form>
             </div>

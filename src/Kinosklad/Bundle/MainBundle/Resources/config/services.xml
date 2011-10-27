@@ -9,6 +9,7 @@
         <parameter key="kinosklad.film.repository.class">Kinosklad\Bundle\MainBundle\Entity\FilmRepository</parameter>
         <parameter key="kinosklad.film.provder.class">Kinosklad\Bundle\MainBundle\FilmProvider</parameter>
         <parameter key="kinosklad.security.voter.film.class">Kinosklad\Bundle\MainBundle\Security\FilmVoter</parameter>
+        <parameter key="kinosklad.twig.film.class">Kinosklad\Bundle\MainBundle\Twig\FilmExtension</parameter>
     </parameters>
 
     <services>
@@ -23,6 +24,11 @@
 
         <service id="kinosklad.security.voter.film" class="%kinosklad.security.voter.film.class%" public="false">
             <tag name="security.voter" />
+        </service>
+
+        <service id="kinosklad.twig.film" class="%kinosklad.twig.film.class%" public="false">
+            <argument type="service" id="kinosklad.film.provider" />
+            <tag name="twig.extension" />
         </service>
     </services>
 
