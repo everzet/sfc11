@@ -1,6 +1,8 @@
 {% extends "FOSUserBundle::layout.html.twig" %}
 {% form_theme form "KinoskladMainBundle::form_theme.html.twig" %}
 
+{% block title %}{{ 'Register' | trans }}{{ parent() }}{% endblock %}
+
 {% block fos_user_content %}
 <form action="{{ path('fos_user_registration_register') }}" {{ form_enctype(form) }} method="POST" class="fos_user_registration_register">
     <fieldset>
