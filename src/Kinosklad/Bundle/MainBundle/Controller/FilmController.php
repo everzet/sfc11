@@ -23,12 +23,14 @@ class FilmController extends Controller
      */
     public function indexAction()
     {
-        $em = $this->getDoctrine()->getEntityManager();
+        $filmProvider = $this->getFilmProvider();
 
-        $entities = $em->getRepository('KinoskladMainBundle:Film')->findAll();
+        if ($this->getRequest()->query->has('q')) {
+            $filmProvider->setSearchString($this->getRequest()->query->get('q'));
+        }
 
         return $this->render('KinoskladMainBundle:Film:index.html.twig', array(
-            'entities' => $entities
+            'entities' => $filmProvider->fetch()
         ));
     }
 
@@ -239,5 +241,10 @@ class FilmController extends Controller
     private function getSecurityContext()
     {
         return $this->get('security.context');
+    }
+
+    private function getFilmProvider()
+    {
+        return $this->get('kinosklad.film.provider');
     }
 }

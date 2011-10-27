@@ -5,10 +5,22 @@
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <parameters>
+        <parameter key="kinosklad.film.class">Kinosklad\Bundle\MainBundle\Entity\Film</parameter>
+        <parameter key="kinosklad.film.repository.class">Kinosklad\Bundle\MainBundle\Entity\FilmRepository</parameter>
+        <parameter key="kinosklad.film.provder.class">Kinosklad\Bundle\MainBundle\FilmProvider</parameter>
         <parameter key="kinosklad.security.voter.film.class">Kinosklad\Bundle\MainBundle\Security\FilmVoter</parameter>
     </parameters>
 
     <services>
+        <service id="kinosklad.film.repository" class="%kinosklad.film.repository.class%"
+            factory-service="doctrine.orm.entity_manager" factory-method="getRepository">
+            <argument>%kinosklad.film.class%</argument>
+        </service>
+
+        <service id="kinosklad.film.provider" class="%kinosklad.film.provder.class%">
+            <argument type="service" id="kinosklad.film.repository" />
+        </service>
+
         <service id="kinosklad.security.voter.film" class="%kinosklad.security.voter.film.class%" public="false">
             <tag name="security.voter" />
         </service>
