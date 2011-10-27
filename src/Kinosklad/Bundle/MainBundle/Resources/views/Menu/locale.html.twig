@@ -1,0 +1,13 @@
+<li class="dropdown">
+    <a href="javascript:void(0)" class="dropdown-toggle">
+        {{ 'language' | trans }}
+    </a>
+    <ul class="dropdown-menu">
+        <li{% if app.session.locale == 'en' %} class="active"{% endif %}>
+            <a href="{{ path('films', {'_locale': 'en'}) }}">en</a>
+        </li>
+        <li{% if app.session.locale == 'ru' %} class="active"{% endif %}>
+            <a href="{{ path('films', {'_locale': 'ru'}) }}">ru</a>
+        </li>
+    </ul>
+</li>

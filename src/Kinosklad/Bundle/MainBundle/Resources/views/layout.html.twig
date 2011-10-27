@@ -66,48 +66,8 @@
             <div class="container">
                 <a class="brand" href="{{ path('films') }}">Kinosklad</a>
                 <ul class="nav">
-                    <li class="dropdown">
-                        <a href="javascript:void(0)" class="dropdown-toggle">
-                            {{ 'language' | trans }}
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li{% if app.session.locale == 'en' %} class="active"{% endif %}>
-                                <a href="{{ path('films', {'_locale': 'en'}) }}">en</a>
-                            </li>
-                            <li{% if app.session.locale == 'ru' %} class="active"{% endif %}>
-                                <a href="{{ path('films', {'_locale': 'ru'}) }}">ru</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="dropdown">
-                        <a href="javascript:void(0)" class="dropdown-toggle">
-                            {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-                                {{ app.user.username }}
-                            {% else %}
-                                {{ 'user' | trans }}
-                            {% endif %}
-                        </a>
-                        <ul class="dropdown-menu">
-                            {% if is_granted('ROLE_USER') %}
-                                <li>
-                                    <a href="{{ path('fos_user_security_logout') }}">
-                                        {{ 'Logout' | trans }}
-                                    </a>
-                                </li>
-                            {% else %}
-                                <li>
-                                    <a href="{{ path('fos_user_security_login') }}">
-                                        {{ 'Login' | trans }}
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="{{ path('fos_user_registration_register') }}">
-                                        {{ 'Register' | trans }}
-                                    </a>
-                                </li>
-                            {% endif %}
-                        </ul>
-                    </li>
+                    {% include 'KinoskladMainBundle:Menu:locale.html.twig' %}
+                    {% include 'KinoskladMainBundle:Menu:auth.html.twig' %}
                 </ul>
                 <form action="" class="pull-right">
                     <input name="q" value="{{ film_search_string() }}" class="input-big" type="text" placeholder="{{ 'Search...' | trans }}">

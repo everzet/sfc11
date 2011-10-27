@@ -1,0 +1,29 @@
+<li class="dropdown">
+    <a href="javascript:void(0)" class="dropdown-toggle">
+        {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+            {{ app.user.username }}
+        {% else %}
+            {{ 'user' | trans }}
+        {% endif %}
+    </a>
+    <ul class="dropdown-menu">
+        {% if is_granted('ROLE_USER') %}
+            <li>
+                <a href="{{ path('fos_user_security_logout') }}">
+                    {{ 'Logout' | trans }}
+                </a>
+            </li>
+        {% else %}
+            <li>
+                <a href="{{ path('fos_user_security_login') }}">
+                    {{ 'Login' | trans }}
+                </a>
+            </li>
+            <li>
+                <a href="{{ path('fos_user_registration_register') }}">
+                    {{ 'Register' | trans }}
+                </a>
+            </li>
+        {% endif %}
+    </ul>
+</li>
