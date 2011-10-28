@@ -7,6 +7,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 class FilmLinkProxy
 {
     /**
+     * @Assert\NotBlank(message="Url should not be blank")
      * @Assert\Url
      */
     public $url;

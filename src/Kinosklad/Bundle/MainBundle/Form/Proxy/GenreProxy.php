@@ -3,6 +3,7 @@
 namespace Kinosklad\Bundle\MainBundle\Form\Proxy;
 
 use Kinosklad\Bundle\MainBundle\Entity\Genre;
+use Symfony\Component\Validator\Constraints as Assert;
 
 class GenreProxy
 {
