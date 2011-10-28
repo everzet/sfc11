@@ -21,11 +21,19 @@ class FilmProxy
         $this->film = $film;
     }
 
+    /**
+     * @Assert\Valid
+     */
     public function getFilm()
     {
-        return $this->film;
+        return $this->film->translate();
     }
 
+    /**
+     * @Assert\NotBlank(message="Name should not be blank")
+     * @Assert\MinLength(limit=3, message="Title should be more than {{limit}} letters in length")
+     * @Assert\MaxLength(limit=255, message="Title should be less than {{limit}} letters in length")
+     */
     public function getNameEn()
     {
         return $this->film->translate()->getName();
@@ -46,6 +54,13 @@ class FilmProxy
         $this->film->translate('ru')->setName($name);
     }
 
+    /**
+     * @Assert\NotBlank(message="Description should not be blank")
+     * @Assert\MaxLength(
+     *     limit=1000,
+     *     message="Description should be less than {{limit}} letters in length"
+     * )
+     */
     public function getDescriptionEn()
     {
         return $this->film->translate()->getDescription();

@@ -1,6 +1,6 @@
 {% block field_row %}
 {% spaceless %}
-    <div class="clearfix">
+    <div class="clearfix{% if form_errors(form) %} error{% endif %}">
         {{ form_label(form, label|default(null)) }}
         <div class="input">
             {{ form_widget(form) }}

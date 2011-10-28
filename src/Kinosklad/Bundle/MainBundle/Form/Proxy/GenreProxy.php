@@ -13,11 +13,17 @@ class GenreProxy
         $this->genre = $genre;
     }
 
+    /**
+     * @Assert\Valid
+     */
     public function getGenre()
     {
-        return $this->genre;
+        return $this->genre->translate();
     }
 
+    /**
+     * @Assert\NotBlank(message="Name should not be blank")
+     */
     public function getNameEn()
     {
         return $this->genre->translate()->getName();
